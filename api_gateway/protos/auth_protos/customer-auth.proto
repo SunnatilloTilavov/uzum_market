@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "genproto/auth_service";
+
+package auth_service;
+
+service CustomerAuth {
+    rpc LoginByPassword(LoginRequest) returns (LoginResponse) {}
+    rpc GmailCheck(GmailCheckRequest) returns (GmailCheckResponse) {}
+    rpc RegisterByMail(GmailCheckRequest) returns (Empty) {}
+    rpc RegisterByMailConfirm(RConfirm) returns (RegGmailResp) {}
+    rpc Create(CreateRequest) returns (Empty) {}
+    rpc LoginByGmail(GmailCheckRequest) returns (Empty) {}
+    rpc LoginByGmailComfirm(LoginByGmailRequest) returns (LoginResponse) {}
+    rpc UpdatePassword(CreateRequest) returns (Empty) {}
+    rpc ResetPassword(GmailCheckRequest) returns (Empty) {}
+    rpc ResetPasswordConfirm(CustomerPasswordConfirm) returns (Empty) {}
+} 
+
+message Empty {}
+
+message RegGmailResp{
+    string id =1;
+}
+
+message CreateRequest{
+    string gmail=1;
+    string password=2;
+}
+
+message RConfirm{
+    string otp=1;
+    string gmail=2;
+    string password=3;
+    string gender=4;
+    string language=5;
+    string date_of_birth=6;
+}
+
+message LoginRequest {
+    string gmail=1;
+    string password=2;
+}
+
+message LoginResponse{  
+    string accesstoken=1;
+    string refreshtoken=2;
+}
+
+message GmailCheckRequest{
+    string gmail=1;
+}
+
+message GmailCheckResponse{
+    string password=1;
+}
+
+message LoginByGmailRequest {
+    string otp=1;
+    string gmail=2;
+}
+
+message CustomerPasswordConfirm {
+    string gmail=1;
+    string otp=2;
+    string password=3;
+}

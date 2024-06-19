@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+service SellerService {
+    rpc Create(CreateSeller) returns (SellerPrimaryKey) {}
+    rpc GetByID(SellerPrimaryKey) returns (Seller) {}
+    rpc GetList(GetListSellerRequest) returns (GetListSellerResponse) {}
+    rpc Update(UpdateSellerRequest) returns (UpdateSellerResponse) {}
+    rpc Delete(SellerPrimaryKey) returns (SellerEmpty) {}
+    rpc GetByGmail(SellerGmail) returns (SellerPrimaryKey) {}
+}
+
+message SellerEmpty {}
+
+message SellerPrimaryKey {
+    string id = 1;
+}
+
+message SellerGmail{
+    string gmail=1;
+}
+
+message CreateSeller {
+    string phone = 1;
+    string gmail =2;
+    string name =3;
+    string date_of_birth=4;
+    string shop_id=5;
+}
+
+message Seller {
+    string phone = 1;
+    string gmail =2;
+    string name =3;
+    string date_of_birth=4;
+    string shop_id=5;
+    string created_at = 6;
+    string updated_at = 7;
+    string id = 8;
+}
+
+message UpdateSellerRequest {
+    string phone = 1;
+    string gmail =2;
+    string name =3;
+    string date_of_birth=4;
+    string shop_id=5;
+    string id = 6;
+}
+
+message UpdateSellerResponse {
+    string message = 1;
+}
+
+message GetListSellerRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListSellerResponse {
+    int64 Count = 1;
+    repeated Seller Seller = 2;
+}

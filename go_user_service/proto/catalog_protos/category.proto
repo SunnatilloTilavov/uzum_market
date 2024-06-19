@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+option go_package = "genproto/catalog_service";
+
+// import "protos/catalog_service/product.proto";
+
+package catalog_service;
+
+service CategoryService {
+    rpc Create(CreateCategory) returns (Category) {}
+    rpc GetByID(CategoryPrimaryKey) returns (GetCategory) {}
+    rpc GetList(GetListCategoryRequest) returns (GetListCategoryResponse) {}
+    rpc Update(UpdateCategory) returns (GetCategory) {}
+    rpc Delete(CategoryPrimaryKey) returns (Empty) {}
+    rpc GetCategoryWithProductId(CategoryPrimaryKey) returns (GetCategory) {}
+}
+
+message Empty {}
+
+message CategoryPrimaryKey {
+    string id = 1;
+}
+
+message CreateCategory {
+    string name_uz = 1;
+    string name_ru = 2;
+    string name_en = 3;
+    bool active = 4;
+    int32 order_no = 5;
+    string parent_id = 6;
+}
+
+message Category {
+    string id = 1;
+    string slug = 2;
+    string name_uz = 3;
+    string name_ru = 4;
+    string name_en = 5;
+    bool active = 6;
+    int32 order_no = 7;
+    string parent_id = 8;
+    string created_at = 9;
+    string updated_at = 10;
+    string deleted_at = 11;
+}
+
+message GetCategory {
+    string id = 1;
+    string slug = 2;
+    string name_uz = 3;
+    string name_ru = 4;
+    string name_en = 5;
+    bool active = 6;
+    int32 order_no = 7;
+    string parent_id = 8;
+    string created_at = 9;
+    string updated_at = 10;
+    string deleted_at = 11;
+    repeated GetChildId child_categories = 12;
+}
+
+message GetChildId {
+    string id = 1;
+    repeated Product1 products = 2;
+}
+
+message UpdateCategory {
+    string id = 1;
+    string slug = 2;
+    string name_uz = 3;
+    string name_ru = 4;
+    string name_en = 5;
+    bool active = 6;
+    int32 order_no = 7;
+    string parent_id = 8;
+}
+
+message GetListCategoryRequest {
+    int64 page = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListCategoryResponse {
+    int64 Count = 1;
+    repeated GetCategory Categorys = 2;
+}
+
+
+message Product1 {
+    string id = 1;
+    string slug = 2;
+    string name_uz = 3;
+    string name_ru = 4;
+    string name_en = 5;
+    string description_uz = 6;
+    string description_ru = 7;
+    string description_en = 8;
+    bool active = 9;
+    int32 order_no = 10;
+    float in_price = 11;
+    float out_price = 12;
+    int32 left_count = 13;
+    float discount_percent = 14;
+    repeated string image = 15;
+    string created_at = 16;
+    string updated_at = 17;
+    string deleted_at = 18;
+}
+
+
+

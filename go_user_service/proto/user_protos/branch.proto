@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+service BranchService {
+    rpc Create(CreateBranch) returns (BranchPrimaryKey) {}
+    rpc GetByID(BranchPrimaryKey) returns (Branch) {}
+    rpc GetList(GetListBranchRequest) returns (GetListBranchResponse) {}
+    rpc Update(UpdateBranchRequest) returns (UpdateBranchResponse) {}
+    rpc Delete(BranchPrimaryKey) returns (BranchEmpty) {}
+}
+
+message Location {
+    double longitude = 1;
+    double latitude = 2;
+}
+
+message BranchEmpty {}
+
+message BranchPrimaryKey {
+    string id = 1;
+}
+
+message CreateBranch {
+    string open_time = 1;
+    string close_time = 2;
+    bool active = 3;
+    string phone = 4;
+    string name = 5;
+    Location location = 6; // Note: Changed to lowercase "location"
+    string address = 7;    // Note: Corrected spelling to "address"
+}
+
+message Branch {
+    string phone = 1;
+    string name = 2;
+    Location location = 3; // Note: Changed to lowercase "location"
+    string address = 4;    // Note: Corrected spelling to "address"
+    string created_at = 5;
+    string updated_at = 6;
+    string id = 7;
+    string open_time = 8;
+    string close_time = 9;
+    bool active = 10;
+}
+
+message UpdateBranchRequest {
+    string open_time = 1;
+    string close_time = 2;
+    bool active = 3;
+    string phone = 4;
+    string name = 5;
+    Location location = 6; // Note: Changed to lowercase "location"
+    string address = 7;    // Note: Corrected spelling to "address"
+    string id = 8;
+}
+
+message UpdateBranchResponse {
+    string message = 1;
+}
+
+message GetListBranchRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListBranchResponse {
+    int64 count = 1; // Note: Changed to lowercase "count"
+    repeated Branch branches = 2; // Note: Changed to "branches"
+}

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+service SystemUserService {
+    rpc Create(CreateSystemUser) returns (SystemUserPrimaryKey) {}
+    rpc GetByID(SystemUserPrimaryKey) returns (SystemUser) {}
+    rpc GetList(GetListSystemUserRequest) returns (GetListSystemUserResponse) {}
+    rpc Update(UpdateSystemUserRequest) returns (UpdateSystemUserResponse) {}
+    rpc Delete(SystemUserPrimaryKey) returns (SystemUserEmpty) {}
+    rpc GetByGmail(SystemUserGmail) returns (SystemUserPrimaryKey) {}
+}
+
+message SystemUserEmpty {}
+
+message SystemUserPrimaryKey {
+    string id = 1;
+}
+
+message SystemUserGmail{
+    string gmail=1;
+}
+
+message CreateSystemUser {
+    string phone=2;
+    string gmail=3;
+    string name=4;
+    string role=5;
+}
+
+message SystemUser {
+    string id =1;
+    string phone=2;
+    string gmail=3;
+    string name=4;
+    string role=5;
+    string created_at=6;
+    string updated_at=7;
+}
+
+message UpdateSystemUserRequest {
+    string id=1;
+    string phone=2;
+    string gmail=3;
+    string name=4;
+    string role=5;
+}
+
+message UpdateSystemUserResponse {
+    string message = 1;
+}
+
+message GetListSystemUserRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListSystemUserResponse {
+    int64 Count = 1;
+    repeated SystemUser SystemUser = 2;
+}

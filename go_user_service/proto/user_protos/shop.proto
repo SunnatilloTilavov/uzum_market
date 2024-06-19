@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+service ShopService {
+    rpc Create(CreateShop) returns (ShopPrimaryKey) {}
+    rpc GetById(ShopPrimaryKey) returns (GetByID) {}
+    rpc GetList(GetListShopRequest) returns (GetListShopResponse) {}
+    rpc Update(UpdateShopRequest) returns (ShopEmpty) {}
+    rpc Delete(ShopPrimaryKey) returns (ShopEmpty) {}
+}
+
+message ShopEmpty {}
+
+message ShopPrimaryKey {
+    string id = 1;
+}
+
+message LocationShop {
+    double longitude = 1;
+    double latitude = 2;
+}
+
+message CreateShop {
+    string phone = 1;
+    string name_uz = 2;
+    string name_ru = 3;
+    string name_en = 4;
+    string description_uz=5;
+    string description_ru=6;
+    string description_en=7;
+    LocationShop location=8;
+    string currency=9;
+    repeated string payment_types=10;
+}
+
+message GetByID {
+    string id = 1;
+    string slug = 2;
+    string phone = 3;
+    string name_uz = 4;
+    string name_ru = 5;
+    string name_en = 6;
+    string description_uz=7;
+    string description_ru=8;
+    string description_en=9;
+    LocationShop location=10;
+    string currency=11;
+    string created_at = 13;
+    string updated_at = 14;
+    repeated string payment_types=15;
+}
+
+message Shop {
+    string id = 1;
+    string slug = 2;
+    string phone = 3;
+    string name_uz = 4;
+    string name_ru = 5;
+    string name_en = 6;
+    string description_uz=7;
+    string description_ru=8;
+    string description_en=9;
+    LocationShop location=10;
+    string currency=11;
+    repeated string payment_types=12;
+    string created_at = 13;
+    string updated_at = 14;
+    string deleted_at = 15;
+}
+
+message UpdateShopRequest {
+    string phone = 1;
+    string name_uz = 2;
+    string name_ru = 3;
+    string name_en = 4;
+    string description_uz=5;
+    string description_ru=6;
+    string description_en=7;
+    LocationShop location=8;
+    string currency=9;
+    string id =10;
+    repeated string payment_types=11;
+}
+
+message UpdateShopResponse {
+    string message = 1;
+}
+
+message GetListShopRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListShopResponse {
+    int64 Count = 1;
+    repeated Shop Shop = 2;
+}

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+option go_package = "genproto/auth_service";
+
+package auth_service;
+
+
+service SystemUserAuth {
+    rpc SystemUserLoginByPassword(SystemUserLoginRequest) returns (SystemUserLoginResponse) {}
+    rpc SystemUserGmailCheck(SystemUserGmailCheckRequest) returns (SystemUserGmailCheckResponse) {}
+    rpc SystemUserRegisterByMail(SystemUserGmailCheckRequest) returns (SystemUserEmpty) {}
+    rpc SystemUserRegisterByMailConfirm(SystemUserRConfirm) returns (RespRegSeller) {}
+    rpc SystemUserCreate(SystemUserCreateRequest) returns (SystemUserEmpty) {}
+    rpc SystemUserLoginByGmail(SystemUserGmailCheckRequest) returns (SystemUserEmpty) {}
+    rpc SystemUserLoginByGmailComfirm(SystemUserLoginByGmailRequest) returns (SystemUserLoginResponse) {}
+    rpc SystemUserUpdatePassword(SystemUserCreateRequest) returns (SystemUserEmpty) {}
+    rpc SystemUserResetPassword(SystemUserGmailCheckRequest) returns (SystemUserEmpty) {}
+    rpc SystemUserResetPasswordConfirm(SystemUserPasswordConfirm) returns (SystemUserEmpty) {}
+}   
+
+message SystemUserEmpty {}
+
+message RespRegSeller{
+    string id=1;
+}
+
+message SystemUserCreateRequest{
+    string gmail=1;
+    string password=2;
+}
+
+message SystemUserRConfirm{
+    string otp=1;
+    string gmail=2;
+    string password=3;
+    string role=4;
+}
+
+message SystemUserLoginRequest {
+    string gmail=1;
+    string password=2;
+}
+
+message SystemUserLoginResponse{  
+    string accesstoken=1;
+    string refreshtoken=2;
+}
+
+message SystemUserGmailCheckRequest{
+    string gmail=1;
+}
+
+message SystemUserGmailCheckResponse{
+    string password=1;
+}
+
+message SystemUserLoginByGmailRequest {
+    string otp=1;
+    string gmail=2;
+}
+
+message SystemUserPasswordConfirm {
+    string gmail=1;
+    string password=2;
+    string otp=3;
+}

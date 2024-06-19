@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option go_package = "genproto/catalog_service";
+
+package catalog_service;
+
+message ProductCategory {
+  string id = 1;
+  string product_id = 2;
+  string category_id = 3;
+}
+
+service ProductCategoryService {
+  rpc CreateProductCategory(CreateProductCategoryRequest) returns (ProductCategory) {}
+  rpc GetProductCategoriesByProductID(GetProductCategoriesByProductIDRequest) returns (GetProductCategoriesByProductIDResponse) {}
+  rpc GetProductCategoriesByCategoryID(GetProductCategoriesByCategoryIDRequest) returns (GetProductCategoriesByCategoryIDResponse) {}
+  rpc DeleteProductCategory(DeleteProductCategoryRequest) returns (Empty2) {}
+}
+
+message CreateProductCategoryRequest {
+  string product_id = 1;
+  string category_id = 2;
+}
+
+message GetProductCategoriesByProductIDRequest {
+  string product_id = 1;
+}
+
+message GetProductCategoriesByProductIDResponse {
+  repeated ProductCategory categories = 1;
+}
+
+message GetProductCategoriesByCategoryIDRequest {
+  string category_id = 1;
+}
+
+message GetProductCategoriesByCategoryIDResponse {
+  repeated ProductCategory categories = 1;
+}
+
+message DeleteProductCategoryRequest {
+  string product_id = 1;
+  string category_id = 2;
+}
+
+message Empty2 {}

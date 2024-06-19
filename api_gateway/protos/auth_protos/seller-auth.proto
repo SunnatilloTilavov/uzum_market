@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = "genproto/auth_service";
+
+package auth_service;
+
+
+service SellerAuth {
+    rpc SellerLoginByPassword(SellerLoginRequest) returns (SellerLoginResponse) {}
+    rpc SellerGmailCheck(SellerGmailCheckRequest) returns (SellerGmailCheckResponse) {}
+    rpc SellerRegisterByMail(SellerGmailCheckRequest) returns (SellerEmpty) {}
+    rpc SellerRegisterByMailConfirm(SellerRConfirm) returns (SellerEmpty) {}
+    rpc SellerCreate(SellerCreateRequest) returns (SellerEmpty) {}
+    rpc SellerLoginByGmail(SellerGmailCheckRequest) returns (SellerEmpty) {}
+    rpc SellerLoginByGmailComfirm(SellerLoginByGmailRequest) returns (SellerLoginResponse) {}
+    rpc SellerUpdatePassword(SellerCreateRequest) returns (SellerEmpty) {}
+    rpc SellerResetPassword(SellerGmailCheckRequest) returns (SellerEmpty) {}
+    rpc SellerResetPasswordConfirm(SellerPasswordConfirm) returns (SellerEmpty) {}
+}   
+
+message SellerEmpty {}
+
+message SellerCreateRequest{
+    string gmail=1;
+    string password=2;
+}
+
+message SellerRConfirm{
+    string otp=1;
+    string gmail=2;
+    string password=3;
+    string gender=4;
+    string language=5;
+}
+
+message SellerLoginRequest {
+    string gmail=1;
+    string password=2;
+}
+
+message SellerLoginResponse{  
+    string accesstoken=1;
+    string refreshtoken=2;
+}
+
+message SellerGmailCheckRequest{
+    string gmail=1;
+}
+
+message SellerGmailCheckResponse{
+    string password=1;
+}
+
+message SellerLoginByGmailRequest {
+    string otp=1;
+    string gmail=2;
+}
+
+message SellerPasswordConfirm {
+    string gmail=1;
+    string password=2;
+    string otp=3;
+}
