@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "genproto/catalog_service";
+
+package catalog_service;
+
+service ProductReviewService {
+    rpc CreateProductReview(CreateProductReviewRequest) returns (ProductReview) {}
+    rpc GetProductReviewByID(ProductReviewPrimaryKey) returns (ProductReview) {}
+    rpc GetProductReviewsByProductID(GetProductReviewsByProductIDRequest) returns (GetProductReviewsByProductIDResponse) {}
+    rpc GetProductReviewsByCustomerID(GetProductReviewsByCustomerIDRequest) returns (GetProductReviewsByCustomerIDResponse) {}
+    rpc UpdateProductReview(UpdateProductReviewRequest) returns (ProductReview) {}
+    rpc DeleteProductReview(ProductReviewPrimaryKey) returns (Empty4) {}
+}
+
+message Empty4 {}
+
+message ProductReviewPrimaryKey {
+    string id = 1;
+}
+
+message CreateProductReviewRequest {
+    string customer_id = 1;
+    string product_id = 2;
+    string text = 3;
+    float rating = 4;
+    string order_id = 5;
+}
+
+message ProductReview {
+    string id = 1;
+    string customer_id = 2;
+    string product_id = 3;
+    string text = 4;
+    float rating = 5;
+    string order_id = 6;
+    string created_at = 7;
+}
+
+message UpdateProductReviewRequest {
+    string id = 1;
+    string text = 2;
+    float rating = 3;
+}
+
+message GetProductReviewsByProductIDRequest {
+    string product_id = 1;
+}
+
+message GetProductReviewsByProductIDResponse {
+    repeated ProductReview reviews = 1;
+}
+
+message GetProductReviewsByCustomerIDRequest {
+    string customer_id = 1;
+}
+
+message GetProductReviewsByCustomerIDResponse {
+    repeated ProductReview reviews = 1;
+}
