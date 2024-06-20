@@ -89,9 +89,9 @@ func New(cfg config.Config) (*GrpcClient, error) {
 			"sellerservice":          pq.NewSellerServiceClient(connUser),
 			"shopservice":            pq.NewShopServiceClient(connUser),
 			"SystemUserService":      pq.NewSystemUserServiceClient(connUser),
-			"SellerAuthClient":       ps.NewCustomerAuthClient(connAuth),
-			"CustomerAuthService":    ps.NewSellerAuthClient(connAuth),
-			"SystemUserAuthService":  ps. NewSystemUserAuthClient(connAuth),
+			"SellerAuthClient":       ps.NewSellerAuthClient(connAuth),
+			"CustomerAuthService":    ps.NewCustomerAuthClient(connAuth),
+			"SystemUserAuthService":  ps.NewSystemUserAuthClient(connAuth),
 		},
 	}, nil
 }
